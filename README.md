@@ -15,7 +15,7 @@ Save and delete books.
 ### To Use
 Search for a book to start!
 
-<img src="./public/images/example-google-books.png" width="800">
+<img src="./client/public/images/example-google-books.png" width="800">
  
 ## Built With
 * node.js

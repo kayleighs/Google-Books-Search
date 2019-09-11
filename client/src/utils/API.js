@@ -1,7 +1,8 @@
 import axios from "axios";
-const axiosInstance = axios.create({
+//Use below to test server locally, replace axios below with axiosInstance, also I used Chrome extension, allow-control-allow-origin
+/* const axiosInstance = axios.create({
   baseURL: 'http://localhost:3001'
-});
+}); */
 export default {
   //Google api search
   getGoogleBooks: function(query) {
@@ -9,7 +10,7 @@ export default {
   },
   // Gets all books
   getBooks: function () {
-    return axiosInstance.get("/api/books");
+    return axios.get("/api/books");
   },
   // Gets the book with the given id
   getBook: function (id) {
@@ -17,10 +18,10 @@ export default {
   },
   // Deletes the book with the given id
   deleteBook: function (id) {
-    return axiosInstance.delete("/api/books/" + id);
+    return axios.delete("/api/books/" + id);
   },
   // Saves a book to the database
   saveBook: function (bookData) {
-    return axiosInstance.post("/api/books", bookData);
+    return axios.post("/api/books", bookData);
   }
 };

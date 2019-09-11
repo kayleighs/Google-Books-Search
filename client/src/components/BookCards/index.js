@@ -3,13 +3,12 @@ import "./style.css";
 import Button from "../Button"
 
 
-let buttonSave = "Save"
 
 class BookCards extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      buttonSave
+
     }
   }
   render (){
@@ -26,7 +25,7 @@ class BookCards extends React.Component {
                 </p>
                 <br></br>
                   <div className="position-absolute bottom-right ">
-                  <Button data-id={this.props.id} href="#" className="ks-button save-btn" buttonMessage={buttonSave}></Button>
+                <Button buttonClick={this.props.buttonClick} id={this.props.id} className="ks-button save-btn" buttonMessage={this.props.buttonMessage}></Button>
                   </div>
                 </section>
               </section>

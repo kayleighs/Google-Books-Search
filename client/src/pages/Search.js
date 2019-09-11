@@ -4,15 +4,20 @@ import SearchBar from "../components/SearchBar"
 import Wrapper from "../components/Wrapper"
 import BookCards from "../components/BookCards"
 import API from "../utils/API";
+
+import { ToastContainer } from "react-toastr";
+
 //import Button from "../components/Button"
 
-
+let buttonSave ="Save"
+let container;
 class Search extends React.Component {
 
   state = {
     search: "",
     books: [],
-
+    message:"",
+    buttonSave
   };
   handleInputChange = event => {
     const {  value } = event.target;
@@ -44,7 +49,7 @@ class Search extends React.Component {
               image: result.volumeInfo.imageLinks.thumbnail,
               link: result.volumeInfo.infoLink
             }
-            console.log(result)
+            //console.log(result)
             return result;
           })
           // reset the state of the empty books array to the new arrays of objects with properties geting back from the response
@@ -53,10 +58,34 @@ class Search extends React.Component {
       })
       .catch(err => this.setState({ error: err.items }));
   }
-
+  handleSavedButton = event => {
+    //console.log("clicked")
+    // console.log(event)
+    event.preventDefault();
+    //console.log(this.state.books)
+    let savedBooks = this.state.books.filter(book => book.id === event.target.id)
+    savedBooks = savedBooks[0];
+    //console.log(savedBooks)
+    API.saveBook(savedBooks)
+      //.then(this.setState({ message: console.log("Your book is saved") }))
+      /* .then(container.success(`hi! Now is ${new Date()}`, `///title\\\\\\`, {
+        closeButton: true,
+      })) */
+      .catch(err => console.log(err))
+/*     container.success(`Book saved at ${new Date()}`, `Success!`, { */
+    container.success(`Book saved!`, `Success!`, {
+      closeButton: true,
+    })
+  };
+  
   render() {
     return (
+      
       <div>      
+        <ToastContainer
+          ref={ref => container = ref}
+          className="toast-bottom-right"
+        />
         <Jumbotron/>
         <Wrapper>
           <SearchBar 
@@ -76,8 +105,9 @@ class Search extends React.Component {
           description= {books.description}
           image= {books.image}
           link= {books.link}
+          buttonClick={this.handleSavedButton}
+          buttonMessage={buttonSave}
           />
-
           ))}
           </div>
         </div>

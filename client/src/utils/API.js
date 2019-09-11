@@ -1,5 +1,7 @@
 import axios from "axios";
-
+const axiosInstance = axios.create({
+  baseURL: 'http://localhost:3001'
+});
 export default {
   //Google api search
   getGoogleBooks: function(query) {
@@ -7,7 +9,7 @@ export default {
   },
   // Gets all books
   getBooks: function () {
-    return axios.get("/api/books");
+    return axiosInstance.get("/api/books");
   },
   // Gets the book with the given id
   getBook: function (id) {
@@ -15,10 +17,10 @@ export default {
   },
   // Deletes the book with the given id
   deleteBook: function (id) {
-    return axios.delete("/api/books/" + id);
+    return axiosInstance.delete("/api/books/" + id);
   },
   // Saves a book to the database
   saveBook: function (bookData) {
-    return axios.post("/api/books", bookData);
+    return axiosInstance.post("/api/books", bookData);
   }
 };
